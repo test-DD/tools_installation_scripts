@@ -19,10 +19,21 @@ sudo apt upgrade -y
 
 sudo apt install openjdk-17-jre -y
 
-curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo tee \
-  /usr/share/keyrings/jenkins-keyring.asc > /dev/null
-echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
-  https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
-  /etc/apt/sources.list.d/jenkins.list > /dev/null
-sudo apt-get update -y 
+ sudo curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2026.key | sudo tee /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+#curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo tee \
+  #/usr/share/keyrings/jenkins-keyring.asc > /dev/null
+#echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
+ # https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+  #/etc/apt/sources.list.d/jenkins.list > /dev/null
+
+echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/" | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/nullsudo apt-get update -y 
 sudo apt-get install jenkins -y
+sudo apt-get update
+sudo apt-get install jenkins
+sudo systemctl enable jenkins
+public_ip=$(curl -s https://api.ipify.org)
+echo "Your Application is running on: $public_ip:8080"
+echo "Please use the following initial password to unlock Jenkins:"
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+echo "script is running successfully……sudo cat /var/lib/jenkins/secrets/initialAdminPassword😀"
+
